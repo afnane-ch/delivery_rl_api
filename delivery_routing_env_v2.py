@@ -36,7 +36,7 @@ FLEET_CONFIG = [
 ]
 
 NUM_VEHICLES = len(FLEET_CONFIG)  # 5
-MAX_ORDERS   = 10                 # commandes max par épisode
+MAX_ORDERS   = 6                 # commandes max par épisode
 
 # ─────────────────────────────────────────────
 #  CONSTANTES DE NORMALISATION
