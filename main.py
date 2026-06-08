@@ -50,7 +50,9 @@ try:
 except Exception as e:
     MODEL_LOADED = False
     print(f"❌ Erreur chargement poids : {e}")
-
+print(f"PI_L0_W shape: {PI_L0_W.shape}")
+print(f"PI_L2_W shape: {PI_L2_W.shape}")
+print(f"ACTION_W shape: {ACTION_W.shape}")
 # ─────────────────────────────────────────────
 #  IMPORT ENVIRONNEMENT V2
 # ─────────────────────────────────────────────
