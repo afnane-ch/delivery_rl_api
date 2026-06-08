@@ -44,6 +44,7 @@ try:
     w        = np.load(WEIGHTS_PATH)
     PI_L0_W  = w["pi_l0_w"];  PI_L0_B  = w["pi_l0_b"]
     PI_L2_W  = w["pi_l2_w"];  PI_L2_B  = w["pi_l2_b"]
+    PI_L4_W  = w["pi_l4_w"];  PI_L4_B  = w["pi_l4_b"] 
     ACTION_W = w["action_w"]; ACTION_B = w["action_b"]
     MODEL_LOADED = True
     print(f"✅ Poids V2 chargés — action shape: {ACTION_W.shape}")
@@ -150,11 +151,11 @@ class BatchResult(BaseModel):
 #  UTILITAIRES
 # ─────────────────────────────────────────────
 def _predict(obs: np.ndarray) -> int:
-    """Inférence PPO en pur numpy."""
     x = obs.astype(np.float32).flatten()
-    x = np.tanh(PI_L0_W @ x + PI_L0_B)
-    x = np.tanh(PI_L2_W @ x + PI_L2_B)
-    return int(np.argmax(ACTION_W @ x + ACTION_B))
+    x = np.tanh(PI_L0_W @ x + PI_L0_B)   # 84 → 256
+    x = np.tanh(PI_L2_W @ x + PI_L2_B)   # 256 → 256
+    x = np.tanh(PI_L4_W @ x + PI_L4_B)   # 256 → 128
+    return int(np.argmax(ACTION_W @ x + ACTION_B))  # 128 → 6
 
 def _order_to_dict(o: OrderIn) -> dict:
     return {
